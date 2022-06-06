@@ -3,17 +3,20 @@ import {
   SimpleGrid,
   useColorModeValue,
 } from "@chakra-ui/react";
+import ChartBox from "lib/components/charts/LineChart";
+import { IETHStakersAndStakedInfo } from "lib/types/types/home";
 
 import { NextSeo } from "next-seo";
 
 const colors = ["#ffc107", "#ff5722", "#03a9f4", "#4caf50", "#00bcd4", "#f44336", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#009688", "#607d8b"]
 
 interface Props {
+  stakersAndStakedInfo: IETHStakersAndStakedInfo[]
 }
 
 
 const Home = ({
-
+  stakersAndStakedInfo
 }: Props) => {
   const bgCard = useColorModeValue("white", "#191919");
 
@@ -60,6 +63,47 @@ const Home = ({
           columns={{ sm: 1, md: 1, lg: 2, "2xl": 3 }}
           spacing={{ base: 1, md: 2, lg: 4 }}
         >
+          <ChartBox data={stakersAndStakedInfo}
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/938b8fd0-675b-4423-825d-a0abe8079780"
+            showMonthly
+            tooltipTitle="Daily ETH staked over time"
+            modelInfo="Daily ETH staked over time"
+            title="Daily ETH staked over time"
+            baseSpan={3}
+            areaDataKey="ETH Staked"
+            xAxisDataKey="Day" />
+
+          <ChartBox data={stakersAndStakedInfo}
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/938b8fd0-675b-4423-825d-a0abe8079780"
+
+            tooltipTitle="Cumulative ETH staked over time"
+            modelInfo="Cumulative ETH staked over time"
+            title="Cumulative ETH staked over time"
+            baseSpan={3}
+            areaDataKey="Total ETH Staked"
+            xAxisDataKey="Day" />
+          <ChartBox data={stakersAndStakedInfo}
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/938b8fd0-675b-4423-825d-a0abe8079780"
+            showMonthly
+            tooltipTitle="Daily number of stakers over time"
+            modelInfo="Daily number of stakers over time"
+            title="Daily number of stakers over time"
+            baseSpan={3}
+            areaDataKey="Number of takers"
+            xAxisDataKey="Day" />
+          <ChartBox data={stakersAndStakedInfo}
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/938b8fd0-675b-4423-825d-a0abe8079780"
+
+            tooltipTitle="Cumulative number of stakers over time"
+            modelInfo="Cumulative number of stakers over time"
+            title="Cumulative number of stakers over time"
+            baseSpan={3}
+            areaDataKey="Number of Stakers so far"
+            xAxisDataKey="Day" />
+
+
+
+
 
 
         </SimpleGrid>
