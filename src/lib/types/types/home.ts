@@ -13,3 +13,9 @@ export interface IETHStakersAndStakedInfo {
   "ETH Staked": number;
   "Total ETH Staked": number;
 }
+
+export interface IRawTotalNumberOfStakersAndStakedInfo {
+  TOTAL_UNIQUE_STAKERS: number;
+  TOTAL_STAKING: number;
+  TOTAL_ETH_STAKED: number;
+}

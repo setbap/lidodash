@@ -1,6 +1,7 @@
 import {
   IETHStakersAndStakedInfo,
   IRawETHStakersAndStakedInfo,
+  IRawTotalNumberOfStakersAndStakedInfo,
 } from "lib/types/types/home";
 import moment from "moment";
 
@@ -20,4 +21,14 @@ export const getStakersAndStakedInfo = async () => {
       "ETH Staked": txCount.ETH_STAKED,
       "Total ETH Staked": txCount.TOTAL_ETH_STAKED,
     }));
+};
+
+export const getTotalETHAndStakedInfo = async () => {
+  const res = await fetch(
+    "https://node-api.flipsidecrypto.com/api/v2/queries/88a9e4e4-f291-4dc5-a375-b9e29168fc0d/data/latest"
+  );
+  const totalETHAndStakedInfo: IRawTotalNumberOfStakersAndStakedInfo = (
+    await res.json()
+  )[0];
+  return totalETHAndStakedInfo;
 };

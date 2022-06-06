@@ -42,7 +42,7 @@ const LinkItems: Array<LinkItemProps> = [
 
   { name: 'About', path: '/about', icon: AiOutlineInfoCircle },
 
-  { name: 'Glossary', path: '/glossary', icon: GiBlackBook },
+  // { name: 'Glossary', path: '/glossary', icon: GiBlackBook },
 ];
 
 export default function SidebarWithHeader({
