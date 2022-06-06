@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const NextSitemapConfig = {
-  siteUrl: "https://terradash.vercel.app",
+  siteUrl: "https://lidodash.vercel.app",
   generateRobotsTxt: true,
 };
 

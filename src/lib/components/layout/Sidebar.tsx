@@ -21,7 +21,6 @@ import { FiHome, FiMenu } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 import ThemeToggle from "./ThemeToggle";
-import ConnectWallet from "../basic/ConnectWallet";
 import { useRouter } from "next/router";
 import { SiBuzzfeed } from "react-icons/si";
 import { RiGovernmentLine } from "react-icons/ri";
@@ -31,9 +30,7 @@ import { CgAnchor } from "react-icons/cg";
 import { AiFillDollarCircle, AiOutlineInfoCircle } from "react-icons/ai";
 import { GiBlackBook } from "react-icons/gi";
 import MotionBox from "../motion/Box";
-import LFGICON from "../basic/LFG_ICON";
-import MirrorIcon from "../basic/MirrorIcon";
-import AnchorIcon from "../basic/AnchorIcon";
+
 import { BiNetworkChart } from "react-icons/bi";
 interface LinkItemProps {
   name: string;
@@ -41,18 +38,11 @@ interface LinkItemProps {
   path: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Overview', path: '/', icon: FiHome },
-  { name: "UST", path: "/ust", icon: AiFillDollarCircle },
-  { name: 'Governance ', path: '/governance', icon: RiGovernmentLine },
-  { name: 'Network ', path: '/network', icon: BiNetworkChart },
-  { name: 'Anchor', path: '/anchor', icon: AnchorIcon },
-  { name: 'Mirror', path: '/mirror', icon: MirrorIcon },
-  { name: 'LFG', path: '/lfg', icon: LFGICON },
+  { name: 'Home', path: '/', icon: FiHome },
+
   { name: 'About', path: '/about', icon: AiOutlineInfoCircle },
-  // { name: 'Tx and Fees', path: '/tx-and-fee', icon: SiBuzzfeed },
-  // { name: 'Native Swaps', path: '/native-swap', icon: VscArrowSwap },
-  // { name: 'Terra vs Others', path: '/terra-vs-others', icon: FaBitcoin },
-  // { name: 'Glossary', path: '/glossary', icon: GiBlackBook },
+
+  { name: 'Glossary', path: '/glossary', icon: GiBlackBook },
 ];
 
 export default function SidebarWithHeader({
@@ -141,7 +131,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 ps={"2"}
                 fontWeight={"extrabold"}
               >
-                TerraDash
+                LidoDash
               </Box>
 
             </>
@@ -251,7 +241,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               fontSize="2xl"
               fontWeight={"extrabold"}
             >
-              TerraDash
+              LidoDash
             </Box>
 
           </>

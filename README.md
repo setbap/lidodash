@@ -1,2 +1,2 @@
-- Terradashb
-  `dashboard for terra network as Flipside Crypto Project `
+- Lidodash
+  `dashboard for lido network as Flipside Crypto Project `

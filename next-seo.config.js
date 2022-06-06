@@ -1,24 +1,24 @@
 /** @type {import('next-seo').DefaultSeoProps} */
 const defaultSEOConfig = {
-  title: "TerraDash",
-  titleTemplate: "%s | Business Intelligence Dashboard for Terra Network ",
+  title: "LidoDash",
+  titleTemplate: "%s | Business Intelligence Dashboard for Lido.fi",
   defaultTitle:
-    "TerraDash | Business Intelligence Dashboard for Terra Network ",
+    "LidoDash | Business Intelligence Dashboard for Lido.fi ",
   description:
-    "Best Business Intelligence Dashboard for Terra Network by Flipside Crypto and Setbap ",
-  canonical: "https://terradash.vercel.app/",
+    "Best Business Intelligence Dashboard for Lido.fi by Flipside Crypto and Setbap ",
+  canonical: "https://LidoDash.vercel.app/",
   openGraph: {
-    url: "https://terradash.vercel.app/",
-    title: "TerraDash",
+    url: "https://LidoDash.vercel.app/",
+    title: "LidoDash",
     description:
-      "Best Business Intelligence Dashboard for Terra Network by Flipside Crypto and Setbap ",
+      "Best Business Intelligence Dashboard for Lido.fi by Flipside Crypto and Setbap ",
     images: [
       {
-        url: "https://og-image.sznm.dev/**TerraDash**.vercel.app.png?theme=dark&md=1&fontSize=125px",
-        alt: "TerraDash by Flipside Crypto and Setbap",
+        url: "https://og-image.sznm.dev/**LidoDash**.vercel.app.png?theme=dark&md=1&fontSize=125px",
+        alt: "LidoDash by Flipside Crypto and Setbap",
       },
     ],
-    site_name: "TerraDash",
+    site_name: "LidoDash",
   },
   twitter: {
     handle: "@flipsidecrypto",
