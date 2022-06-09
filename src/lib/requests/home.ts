@@ -3,6 +3,9 @@ import {
   IRawETHStakersAndStakedInfo,
   IRawTotalNumberOfStakersAndStakedInfo,
   IRawTotalStakingReward,
+  IstEthOnDiffrentPool,
+  IStEthPrice,
+  IStEthVsEthPriceDiff,
   ITotalStakingReward,
 } from "lib/types/types/home";
 import moment from "moment";
@@ -48,3 +51,84 @@ export const getTotalETHAndStakedInfo = async () => {
   )[0];
   return totalETHAndStakedInfo;
 };
+export const getStEthPrice = async () => {
+  const res = await fetch(
+    "https://node-api.flipsidecrypto.com/api/v2/queries/ab2f7d70-1375-44cc-9877-3d65644b032c/data/latest"
+  );
+  const stEthPrice: IStEthPrice[] = await res.json();
+  return stEthPrice;
+};
+export const getStEthVsEthPriceDiff = async () => {
+  const res = await fetch(
+    "https://node-api.flipsidecrypto.com/api/v2/queries/eb91d563-1728-48d3-9183-fbadf7173766/data/latest"
+  );
+  const stEthVsEthPriceDiff: IStEthVsEthPriceDiff[] = await res.json();
+  return stEthVsEthPriceDiff;
+};
+
+export const getStEthOnDiffrentPool: () => Promise<any> = async () => {
+  const res = await fetch(
+    "https://node-api.flipsidecrypto.com/api/v2/queries/f025beb0-6d71-4eab-9ad2-8569dfc4727f/data/latest"
+  );
+  const fetchedData: IstEthOnDiffrentPool[] = await res.json();
+  const tokenNames = Array.from(
+    new Set(
+      fetchedData.map((item) => {
+        return item["Pool Name"];
+      })
+    )
+  );
+  const dailyTVLUSD = calculateDailyBridgeValue(
+    "MM/DD/YYYY",
+    fetchedData,
+    "Day",
+    "Pool Name",
+    "Balance",
+    tokenNames,
+    1_000
+  );
+
+  return {
+    dailyTVLUSD,
+    tokenNames,
+  };
+};
+
+function calculateDailyBridgeValue(
+  dateFormat: string,
+  USTBridgeValue: any[],
+  dateKey: string,
+  nameKey: string,
+  valueKey: string,
+  bridges: string[],
+  minValue: number = 0
+) {
+  const dailyEachBridgeSum: { [key: string]: { [key: string]: number } } = {};
+  USTBridgeValue.forEach((item) => {
+    const date = moment(item[dateKey]).format(dateFormat);
+    if (!Boolean(item[valueKey]) || item[valueKey] < minValue) {
+    } else if (dailyEachBridgeSum[date] === undefined) {
+      dailyEachBridgeSum[date] = {};
+      dailyEachBridgeSum[date][item[nameKey]] = item[valueKey];
+    } else if (dailyEachBridgeSum[date][item[nameKey]] === undefined) {
+      dailyEachBridgeSum[date][item[nameKey]] = item[valueKey];
+    } else {
+      dailyEachBridgeSum[date][item[nameKey]] += item[valueKey];
+    }
+  });
+  const dailyBridgeValue = Object.entries(dailyEachBridgeSum)
+    .map((bc) => {
+      const finalObject = { date: bc[0] };
+      bridges.forEach((bridge) => {
+        if (bc[1][bridge]) {
+          // @ts-ignore
+          finalObject[bridge] = bc[1][bridge];
+        }
+      });
+      return finalObject;
+    })
+    .sort((a, b) => {
+      return moment(a.date).isAfter(moment(b.date)) ? 1 : -1;
+    });
+  return dailyBridgeValue;
+}

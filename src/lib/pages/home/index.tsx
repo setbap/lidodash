@@ -1,10 +1,13 @@
 import { Box, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 import ChartBox from "lib/components/charts/LineChart";
+import StackedAreaChart from "lib/components/charts/StackedAreaGraph";
 import { StatsCard } from "lib/components/charts/StateCard";
 import { StateCardRemoteData } from "lib/components/charts/StateCardRemoteData";
 import {
   IETHStakersAndStakedInfo,
   IRawTotalNumberOfStakersAndStakedInfo,
+  IStEthPrice,
+  IStEthVsEthPriceDiff,
   ITotalStakingReward,
 } from "lib/types/types/home";
 
@@ -28,6 +31,9 @@ const colors = [
 interface Props {
   stakersAndStakedInfo: IETHStakersAndStakedInfo[];
   dailyStakingReward: ITotalStakingReward[];
+  stEthOnDiffrentPool: any;
+  stEthPrice: IStEthPrice[];
+  stEthVsEthPriceDiff: IStEthVsEthPriceDiff[];
 
   totalETHAndStakedInfo: IRawTotalNumberOfStakersAndStakedInfo;
 }
@@ -35,6 +41,10 @@ interface Props {
 const Home = ({
   stakersAndStakedInfo,
   dailyStakingReward,
+  stEthOnDiffrentPool,
+  stEthPrice,
+  stEthVsEthPriceDiff,
+
   totalETHAndStakedInfo,
 }: Props) => {
   const bgCard = useColorModeValue("white", "#191919");
@@ -119,6 +129,45 @@ const Home = ({
           columns={{ sm: 1, md: 1, lg: 2, "2xl": 3 }}
           spacing={{ base: 1, md: 2, lg: 4 }}
         >
+          <StackedAreaChart
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/f025beb0-6d71-4eab-9ad2-8569dfc4727f"
+            modelInfo=""
+            values={stEthOnDiffrentPool.dailyTVLUSD}
+            title="stETH on different pools "
+            dataKey="date"
+            baseSpan={3}
+            oyLabel="stETH on different pools "
+            oxLabel="stEth Volume"
+            labels={[
+              { key: "Lido: Curve Liquidity Farming Pool", color: "#ff5722" },
+              { key: "Lido: wstETH Token", color: "#9c27b0" },
+              { key: "Anchor Protocol: AnchorVault", color: "#009688" },
+              { key: "Other", color: "#7d80d9" },
+            ]}
+          />
+
+          <ChartBox
+            data={stEthPrice}
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/ab2f7d70-1375-44cc-9877-3d65644b032c"
+            tooltipTitle="Daily stETH Price"
+            modelInfo="Daily stETH Price"
+            title="Daily stETH Price"
+            baseSpan={3}
+            areaDataKey="Price"
+            xAxisDataKey="Day"
+          />
+
+          <ChartBox
+            data={stEthVsEthPriceDiff}
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/eb91d563-1728-48d3-9183-fbadf7173766"
+            tooltipTitle="stEth vs Eth Price Difference"
+            modelInfo="stEth vs Eth Price Difference"
+            title="stEth vs Eth Price Difference"
+            baseSpan={3}
+            areaDataKey="Price Difference"
+            xAxisDataKey="Day"
+          />
+
           <ChartBox
             data={dailyStakingReward}
             queryLink="https://app.flipsidecrypto.com/velocity/queries/903eef17-67fc-4258-a4ee-724ebd052a22"

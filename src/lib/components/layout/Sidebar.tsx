@@ -40,6 +40,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", path: "/", icon: FiHome },
   { name: "Stake History", path: "/transactions", icon: AiOutlineInfoCircle },
+  { name: "Top Stakers", path: "/top_stakers", icon: AiOutlineInfoCircle },
   { name: "About", path: "/about", icon: AiOutlineInfoCircle },
 
   // { name: 'Glossary', path: '/glossary', icon: GiBlackBook },

@@ -14,12 +14,13 @@ import { QueryResultSet, QueryStatusFinished } from "@flipsidecrypto/sdk";
 import { useMutation } from "react-query";
 import { LidoStakeTxBox } from "lib/components/basic/LidoTxBox";
 import { validateInputAddresses } from "lib/utility/ethAddressChecker";
+import { TxItemContainer } from "lib/components/basic/TxItemContainer";
 
 function Transactions() {
   const [address, setAddress] = React.useState("");
   const [valid, setValid] = React.useState(false);
   const mutation: any = useMutation(async (address: string) => {
-    const fetchedData = await fetch(`/api/address/${address}`);
+    const fetchedData = await fetch(`/api/address/${address}?testnet=true`);
     const data: QueryResultSet = await fetchedData.json();
 
     return data;
@@ -70,7 +71,13 @@ function Transactions() {
           variant="outline"
         />
       </Container>
-      <Box textAlign={"center"} fontSize="small" my={"1px"}>
+      <Box
+        opacity={0.4}
+        userSelect="none"
+        textAlign={"center"}
+        fontSize="small"
+        my={"2px"}
+      >
         All Data Come From{" "}
         <Link textDecor={"underline"} href="https://flipsidecrypto.xyz/">
           FlipSide Crypto
@@ -137,18 +144,3 @@ function Transactions() {
 }
 
 export default Transactions;
-const TxItemContainer = ({ children }: { children: ReactNode }) => (
-  <Stack
-    spacing={["4", "6"]}
-    direction={"column"}
-    p={["5", "8"]}
-    borderWidth="2px"
-    borderColor="green.200"
-    rounded={"md"}
-    bg="#232323"
-    boxShadow={"base"}
-    alignItems="center"
-  >
-    {children}
-  </Stack>
-);

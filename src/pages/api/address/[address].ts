@@ -1,5 +1,4 @@
 import { QueryResultSet, Flipside, Query } from "@flipsidecrypto/sdk";
-import {} from "react-query";
 
 const getData = async (
   address: string = "0x7c36eb1ef5b94fadbd38fc35df4f3e25f724e43c"

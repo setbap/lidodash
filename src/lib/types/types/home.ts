@@ -24,7 +24,22 @@ export interface IRawTotalStakingReward {
   REWARDS: number;
 }
 
+export interface IStEthPrice {
+  Day: string;
+  Price: number;
+}
+export interface IStEthVsEthPriceDiff {
+  Day: string;
+  "Price Difference": number;
+}
+
 export interface ITotalStakingReward {
   Day: string;
   Reward: number;
+}
+
+export interface IstEthOnDiffrentPool {
+  Day: string;
+  "Pool Name": string;
+  Balance: number;
 }
