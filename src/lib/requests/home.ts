@@ -3,6 +3,7 @@ import {
   IRawETHStakersAndStakedInfo,
   IRawTotalNumberOfStakersAndStakedInfo,
   IRawTotalStakingReward,
+  IStEthEthSwapVolume,
   IstEthOnDiffrentPool,
   IStEthPrice,
   IStEthVsEthPriceDiff,
@@ -51,6 +52,7 @@ export const getTotalETHAndStakedInfo = async () => {
   )[0];
   return totalETHAndStakedInfo;
 };
+
 export const getStEthPrice = async () => {
   const res = await fetch(
     "https://node-api.flipsidecrypto.com/api/v2/queries/ab2f7d70-1375-44cc-9877-3d65644b032c/data/latest"
@@ -58,12 +60,23 @@ export const getStEthPrice = async () => {
   const stEthPrice: IStEthPrice[] = await res.json();
   return stEthPrice;
 };
+
 export const getStEthVsEthPriceDiff = async () => {
   const res = await fetch(
     "https://node-api.flipsidecrypto.com/api/v2/queries/eb91d563-1728-48d3-9183-fbadf7173766/data/latest"
   );
   const stEthVsEthPriceDiff: IStEthVsEthPriceDiff[] = await res.json();
   return stEthVsEthPriceDiff;
+};
+
+export const getStEthEthSwapVolume: () => Promise<
+  IStEthEthSwapVolume[]
+> = async () => {
+  const res = await fetch(
+    "https://node-api.flipsidecrypto.com/api/v2/queries/8b24bf96-7758-4b64-a79d-2b3de5974fcb/data/latest"
+  );
+  const fetchedData: IStEthEthSwapVolume[] = await res.json();
+  return fetchedData;
 };
 
 export const getStEthOnDiffrentPool: () => Promise<any> = async () => {
@@ -85,7 +98,7 @@ export const getStEthOnDiffrentPool: () => Promise<any> = async () => {
     "Pool Name",
     "Balance",
     tokenNames,
-    1_000
+    0
   );
 
   return {

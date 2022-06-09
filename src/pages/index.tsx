@@ -2,6 +2,7 @@ import Home from "lib/pages/home";
 import {
   getDailyStakingReward,
   getStakersAndStakedInfo,
+  getStEthEthSwapVolume,
   getStEthOnDiffrentPool,
   getStEthPrice,
   getStEthVsEthPriceDiff,
@@ -14,6 +15,7 @@ export async function getStaticProps() {
     stEthOnDiffrentPool,
     stEthPrice,
     stEthVsEthPriceDiff,
+    stEthEthSwapVolume,
 
     totalETHAndStakedInfo,
   ] = await Promise.all([
@@ -22,6 +24,7 @@ export async function getStaticProps() {
     getStEthOnDiffrentPool(),
     getStEthPrice(),
     getStEthVsEthPriceDiff(),
+    getStEthEthSwapVolume(),
 
     getTotalETHAndStakedInfo(),
   ]);
@@ -32,6 +35,7 @@ export async function getStaticProps() {
       stEthOnDiffrentPool,
       stEthPrice,
       stEthVsEthPriceDiff,
+      stEthEthSwapVolume,
 
       totalETHAndStakedInfo,
     },

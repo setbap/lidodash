@@ -43,3 +43,9 @@ export interface IstEthOnDiffrentPool {
   "Pool Name": string;
   Balance: number;
 }
+
+export interface IStEthEthSwapVolume {
+  Day: string;
+  "Amount in": number;
+  "Amount out": number;
+}

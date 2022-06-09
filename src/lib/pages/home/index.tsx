@@ -1,11 +1,14 @@
 import { Box, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
+import BarGraph from "lib/components/charts/BarGraph";
 import ChartBox from "lib/components/charts/LineChart";
+import MultiChartBox from "lib/components/charts/MultiLineChart";
 import StackedAreaChart from "lib/components/charts/StackedAreaGraph";
 import { StatsCard } from "lib/components/charts/StateCard";
 import { StateCardRemoteData } from "lib/components/charts/StateCardRemoteData";
 import {
   IETHStakersAndStakedInfo,
   IRawTotalNumberOfStakersAndStakedInfo,
+  IStEthEthSwapVolume,
   IStEthPrice,
   IStEthVsEthPriceDiff,
   ITotalStakingReward,
@@ -34,6 +37,7 @@ interface Props {
   stEthOnDiffrentPool: any;
   stEthPrice: IStEthPrice[];
   stEthVsEthPriceDiff: IStEthVsEthPriceDiff[];
+  stEthEthSwapVolume: IStEthEthSwapVolume[];
 
   totalETHAndStakedInfo: IRawTotalNumberOfStakersAndStakedInfo;
 }
@@ -44,6 +48,7 @@ const Home = ({
   stEthOnDiffrentPool,
   stEthPrice,
   stEthVsEthPriceDiff,
+  stEthEthSwapVolume,
 
   totalETHAndStakedInfo,
 }: Props) => {
@@ -143,6 +148,21 @@ const Home = ({
               { key: "Lido: wstETH Token", color: "#9c27b0" },
               { key: "Anchor Protocol: AnchorVault", color: "#009688" },
               { key: "Other", color: "#7d80d9" },
+            ]}
+          />
+
+          <BarGraph
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/f025beb0-6d71-4eab-9ad2-8569dfc4727f"
+            modelInfo=""
+            values={stEthEthSwapVolume}
+            title="stETH on different pools "
+            dataKey="Day"
+            baseSpan={3}
+            oyLabel="Count "
+            oxLabel="Volume"
+            labels={[
+              { key: "Amount in", color: "#ff5722" },
+              { key: "Amount out", color: "#9c27b0" },
             ]}
           />
 
