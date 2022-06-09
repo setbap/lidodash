@@ -2,6 +2,8 @@ import {
   IETHStakersAndStakedInfo,
   IRawETHStakersAndStakedInfo,
   IRawTotalNumberOfStakersAndStakedInfo,
+  IRawTotalStakingReward,
+  ITotalStakingReward,
 } from "lib/types/types/home";
 import moment from "moment";
 
@@ -20,6 +22,20 @@ export const getStakersAndStakedInfo = async () => {
       "Number of Stakers so far": txCount.TOTAL_STAKERS,
       "ETH Staked": txCount.ETH_STAKED,
       "Total ETH Staked": txCount.TOTAL_ETH_STAKED,
+    }));
+};
+
+export const getDailyStakingReward = async () => {
+  const res = await fetch(
+    "https://node-api.flipsidecrypto.com/api/v2/queries/903eef17-67fc-4258-a4ee-724ebd052a22/data/latest"
+  );
+  const lidoStakersAndStakedInfo: IRawTotalStakingReward[] = await res.json();
+
+  return lidoStakersAndStakedInfo
+    .sort((a, b) => (moment(a.DATE).isAfter(moment(b.DATE)) ? 1 : -1))
+    .map<ITotalStakingReward>((txCount) => ({
+      Day: txCount.DATE,
+      Reward: txCount.REWARDS,
     }));
 };
 

@@ -1,22 +1,24 @@
 import Home from "lib/pages/home";
-import { getStakersAndStakedInfo, getTotalETHAndStakedInfo } from "lib/requests/home";
+import {
+  getDailyStakingReward,
+  getStakersAndStakedInfo,
+  getTotalETHAndStakedInfo,
+} from "lib/requests/home";
 export async function getStaticProps() {
-    const [
-        stakersAndStakedInfo,
-        totalETHAndStakedInfo
-    ] = await Promise.all([
-        getStakersAndStakedInfo(),
+  const [stakersAndStakedInfo, dailyStakingReward, totalETHAndStakedInfo] =
+    await Promise.all([
+      getStakersAndStakedInfo(),
+      getDailyStakingReward(),
 
-
-        getTotalETHAndStakedInfo(),
-
+      getTotalETHAndStakedInfo(),
     ]);
-    return {
-        props: {
-            stakersAndStakedInfo,
-            totalETHAndStakedInfo
-        },
-        revalidate: 10 * 60,
-    };
+  return {
+    props: {
+      stakersAndStakedInfo,
+      dailyStakingReward,
+      totalETHAndStakedInfo,
+    },
+    revalidate: 10 * 60,
+  };
 }
 export default Home;

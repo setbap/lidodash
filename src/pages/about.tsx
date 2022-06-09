@@ -16,7 +16,6 @@ const About = () => {
           pb={8}
           aria-label="about this dashboard"
         >
-
           <MDRenderer>
             {`
 
@@ -38,10 +37,8 @@ This dashboard is made with love by members of the Ethereum community, in partne
     
     
   
-_**Do you have metrics you would like to see on this dashboard? Reach out to GJ via [Twitter](https://twitter.com/GJFlannery19) or Telegram (@Sunslinger) and we’ll do our best to incorporate them into our roadmap!**_
 
-
-Last Updated: __Jun 6, 2022__
+Last Updated: __Jun 9, 2022__
 `}
           </MDRenderer>
         </Box>
