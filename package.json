@@ -22,6 +22,7 @@
     "@chakra-ui/react": "^1.8.3",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
+    "@flipsidecrypto/sdk": "^1.0.0-alpha.0",
     "chakra-ui-markdown-renderer": "^4.0.0",
     "fix-date": "^1.1.6",
     "framer-motion": "^5.6.0",

@@ -38,10 +38,11 @@ interface LinkItemProps {
   path: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', path: '/', icon: FiHome },
+  { name: "Home", path: "/", icon: FiHome },
 
-  { name: 'About', path: '/about', icon: AiOutlineInfoCircle },
+  { name: "About", path: "/about", icon: AiOutlineInfoCircle },
 
+  { name: "Stakes", path: "/transactions", icon: AiOutlineInfoCircle },
   // { name: 'Glossary', path: '/glossary', icon: GiBlackBook },
 ];
 
@@ -58,9 +59,9 @@ export default function SidebarWithHeader({
     }
   }, []);
   const variants = {
-    hidden: { opacity: 0.01, },
+    hidden: { opacity: 0.01 },
     enter: { opacity: 1 },
-    exit: { opacity: 0.01, },
+    exit: { opacity: 0.01 },
   };
   return (
     <MotionBox
@@ -133,7 +134,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
               >
                 LidoDash
               </Box>
-
             </>
           </NextLink>
         </Text>
@@ -243,7 +243,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             >
               LidoDash
             </Box>
-
           </>
         </NextLink>
       </Text>
