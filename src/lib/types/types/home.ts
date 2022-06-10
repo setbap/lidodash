@@ -49,3 +49,10 @@ export interface IStEthEthSwapVolume {
   "Amount in": number;
   "Amount out": number;
 }
+
+export interface IStEthToETHSwapVolume {
+  Day: string;
+  PLATFORM: string;
+  Volume: number;
+  "TX Count": number;
+}

@@ -6,6 +6,7 @@ import {
   IStEthEthSwapVolume,
   IstEthOnDiffrentPool,
   IStEthPrice,
+  IStEthToETHSwapVolume,
   IStEthVsEthPriceDiff,
   ITotalStakingReward,
 } from "lib/types/types/home";
@@ -77,6 +78,38 @@ export const getStEthEthSwapVolume: () => Promise<
   );
   const fetchedData: IStEthEthSwapVolume[] = await res.json();
   return fetchedData;
+};
+
+export const getStEthToETHSwapVolume: () => Promise<any> = async () => {
+  const res = await fetch(
+    "https://node-api.flipsidecrypto.com/api/v2/queries/430ee876-119d-4175-998d-a6ac5d92ff38/data/latest"
+  );
+  const fetchedData: IStEthToETHSwapVolume[] = await res.json();
+  const tokenNames = Array.from(
+    new Set(
+      fetchedData.map((item) => {
+        return item["PLATFORM"];
+      })
+    )
+  );
+  const dailyTVLUSD = calculateDailyBridgeValue(
+    "MM/DD/YYYY",
+    fetchedData,
+    "Day",
+    "PLATFORM",
+    "Volume",
+    tokenNames,
+    0
+  );
+
+  return {
+    dailyTVLUSD,
+    tokenNames,
+    dailyTxCount: fetchedData.map((data) => ({
+      Day: data.Day,
+      "Tx Count": data["TX Count"],
+    })),
+  };
 };
 
 export const getStEthOnDiffrentPool: () => Promise<any> = async () => {

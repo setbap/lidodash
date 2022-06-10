@@ -38,6 +38,7 @@ interface Props {
   stEthPrice: IStEthPrice[];
   stEthVsEthPriceDiff: IStEthVsEthPriceDiff[];
   stEthEthSwapVolume: IStEthEthSwapVolume[];
+  stEthToETHSwapVolume: any;
 
   totalETHAndStakedInfo: IRawTotalNumberOfStakersAndStakedInfo;
 }
@@ -49,6 +50,7 @@ const Home = ({
   stEthPrice,
   stEthVsEthPriceDiff,
   stEthEthSwapVolume,
+  stEthToETHSwapVolume,
 
   totalETHAndStakedInfo,
 }: Props) => {
@@ -152,10 +154,25 @@ const Home = ({
           />
 
           <BarGraph
+            queryLink="https://app.flipsidecrypto.com/velocity/queries/430ee876-119d-4175-998d-a6ac5d92ff38"
+            modelInfo=""
+            values={stEthToETHSwapVolume.dailyTVLUSD}
+            title="Swap stETH-WETH volume on DEXs "
+            dataKey="date"
+            baseSpan={3}
+            oyLabel="Count "
+            oxLabel="Volume"
+            labels={[
+              { key: "uniswap-v2", color: "#ff5722" },
+              { key: "sushiswap", color: "#9c27b0" },
+            ]}
+          />
+
+          <BarGraph
             queryLink="https://app.flipsidecrypto.com/velocity/queries/f025beb0-6d71-4eab-9ad2-8569dfc4727f"
             modelInfo=""
             values={stEthEthSwapVolume}
-            title="stETH on different pools "
+            title="stETH Swap Volumes by Direction on DEXs "
             dataKey="Day"
             baseSpan={3}
             oyLabel="Count "

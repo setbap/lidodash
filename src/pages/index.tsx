@@ -5,6 +5,7 @@ import {
   getStEthEthSwapVolume,
   getStEthOnDiffrentPool,
   getStEthPrice,
+  getStEthToETHSwapVolume,
   getStEthVsEthPriceDiff,
   getTotalETHAndStakedInfo,
 } from "lib/requests/home";
@@ -16,6 +17,7 @@ export async function getStaticProps() {
     stEthPrice,
     stEthVsEthPriceDiff,
     stEthEthSwapVolume,
+    stEthToETHSwapVolume,
 
     totalETHAndStakedInfo,
   ] = await Promise.all([
@@ -25,6 +27,7 @@ export async function getStaticProps() {
     getStEthPrice(),
     getStEthVsEthPriceDiff(),
     getStEthEthSwapVolume(),
+    getStEthToETHSwapVolume(),
 
     getTotalETHAndStakedInfo(),
   ]);
@@ -36,6 +39,7 @@ export async function getStaticProps() {
       stEthPrice,
       stEthVsEthPriceDiff,
       stEthEthSwapVolume,
+      stEthToETHSwapVolume,
 
       totalETHAndStakedInfo,
     },
