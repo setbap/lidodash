@@ -16,7 +16,8 @@ const getData = async (
 
   const query: Query = {
     sql: rawQuery,
-    ttlMinutes: 10,
+    ttlMinutes: 15,
+    cached: true,
   };
 
   return await flipside.query.run(query);

@@ -23,7 +23,7 @@ const getTopStaked = async (
 
   const query: Query = {
     sql: rawQuery,
-    ttlMinutes: 8 * 60,
+    ttlMinutes: 15,
     cached: true,
   };
 
