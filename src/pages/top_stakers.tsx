@@ -1,10 +1,10 @@
 import {
   Box,
   Button,
+  ButtonGroup,
+  Center,
   Container,
   Heading,
-  IconButton,
-  Input,
   Link,
   SimpleGrid,
   Spinner,
@@ -12,29 +12,29 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { ReactNode, useEffect } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
-import { QueryResultSet, QueryStatusFinished } from "@flipsidecrypto/sdk";
-import { useInfiniteQuery, useMutation } from "react-query";
-import { LidoStakeTxBox } from "lib/components/basic/LidoTxBox";
-import { validateInputAddresses } from "lib/utility/ethAddressChecker";
+import { useInfiniteQuery, useQueryClient } from "react-query";
 import { useInView } from "react-intersection-observer";
 import { LidoStakerBox } from "lib/components/basic/LidoStakerBox";
 
 function TopStaker() {
   const { ref, inView } = useInView();
   const [sortType, setSortType] = React.useState("Count");
+  const queryClient = useQueryClient();
+  var qKey = ["top_stakers", sortType];
 
+  const reload = () => {
+    queryClient.invalidateQueries(qKey);
+  };
   const {
-    status,
     data,
-    error,
+    isError,
     isFetching,
     isFetchingNextPage,
     fetchNextPage,
-    fetchPreviousPage,
     hasNextPage,
+    refetch,
   } = useInfiniteQuery(
-    "top_stakers",
+    qKey,
     async ({ pageParam = 1 }) => {
       const fetchedData = await fetch(
         `/api/top_stakers?page=${pageParam}&sortType=${sortType}`
@@ -62,6 +62,7 @@ function TopStaker() {
       fetchNextPage();
     }
   }, [inView]);
+  const isLoading = isFetching || isFetchingNextPage;
   return (
     <Box>
       <Container
@@ -91,7 +92,26 @@ function TopStaker() {
           FlipSide SDK
         </Link>
       </Box>
-
+      <Center bg={"black"} zIndex={101} p="4" position={"sticky"} top="0">
+        <ButtonGroup size="sm" gap="1">
+          <Button disabled={true} variant="unstyled" color={"white"}>
+            Sort By:
+          </Button>
+          {["Count", "Total ETH", "Total USD"].map((type) => (
+            <Button
+              textColor={"white"}
+              onClick={() => {
+                reload();
+                setSortType(type);
+                refetch();
+              }}
+              colorScheme={sortType === type ? "green" : "blackAlpha"}
+            >
+              {type}
+            </Button>
+          ))}
+        </ButtonGroup>
+      </Center>
       <Box pb={"8"}>
         <Container mt={["4", "8"]} maxW={"container.xl"}>
           {data?.pages.map((stakers, i) => (
@@ -103,12 +123,24 @@ function TopStaker() {
           ))}
 
           {hasNextPage && <div ref={ref} />}
-          {(isFetching || isFetchingNextPage) && (
+          {isLoading && (
             <Box py={"8"}>
               <TxItemContainer>
                 <Spinner size="xl" thickness="0.5rem" />
                 <Text textAlign={"center"} fontSize={["xl", "3xl"]}>
                   Loading To Geting Data From FlipSide Crypto...
+                </Text>
+              </TxItemContainer>
+            </Box>
+          )}
+          {isError && (
+            <Box py={"8"}>
+              <TxItemContainer>
+                <Text textAlign={"center"} fontSize={["xl", "3xl"]}>
+                  Error Occured While Getting Data From FlipSide Crypto...
+                </Text>
+                <Text textAlign={"center"} fontSize={"sm"}>
+                  Please Reload Page or Try Again Later
                 </Text>
               </TxItemContainer>
             </Box>
