@@ -5,7 +5,7 @@ const getTopStaked = async (
   acceptableSortTypes: AcceptableSortTypes = "Count",
   page: number = 1
 ): Promise<QueryResultSet> => {
-  const pageSize = 12;
+  const pageSize = 24;
   const flipside = new Flipside(
     `${process.env.FLIPSIDE_KEY}`,
     "https://node-api.flipsidecrypto.com"
@@ -22,7 +22,8 @@ const getTopStaked = async (
 
   const query: Query = {
     sql: rawQuery,
-    ttlMinutes: 10,
+    ttlMinutes: 8 * 60,
+    cached: true,
   };
 
   return await flipside.query.run(query);

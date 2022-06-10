@@ -6,6 +6,7 @@ import {
   IconButton,
   Input,
   Link,
+  SimpleGrid,
   Spinner,
   Stack,
   Text,
@@ -48,7 +49,7 @@ function TopStaker() {
     },
     {
       getNextPageParam: (lastPage, pages) => {
-        if (lastPage?.length === 12) {
+        if (lastPage?.length === 24) {
           return pages.length + 1;
         }
         return undefined;
@@ -91,16 +92,14 @@ function TopStaker() {
         </Link>
       </Box>
 
-      <Box>
+      <Box pb={"8"}>
         <Container mt={["4", "8"]} maxW={"container.xl"}>
           {data?.pages.map((stakers, i) => (
-            <React.Fragment key={i}>
+            <SimpleGrid minChildWidth="320px" mt={"24px"} spacing="24px">
               {stakers?.map((staker) => (
-                <Box pb={"6"}>
-                  <LidoStakerBox key={staker.eth_from_address} data={staker} />
-                </Box>
+                <LidoStakerBox key={staker.eth_from_address} data={staker} />
               ))}
-            </React.Fragment>
+            </SimpleGrid>
           ))}
 
           {hasNextPage && <div ref={ref} />}
