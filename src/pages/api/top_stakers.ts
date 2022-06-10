@@ -15,6 +15,7 @@ const getTopStaked = async (
       from ethereum.core.ez_eth_transfers
       where eth_to_address = '0xae7ab96520de3a18e5e111b5eaab095312d7fe84' 
       group by eth_from_address
+      having "Total USD"> 0
       order by "${acceptableSortTypes}" desc
       OFFSET ${pageSize * (page - 1)}
       FETCH NEXT ${pageSize} ROWS ONLY;
